@@ -1,5 +1,6 @@
 # Teste
 Primeiro contato com AngularJS.
-<b>Testando Markdown</b>
-***
+
+<div style="text-align:right;">
 **Tadeu Humberto dos Reis Tupinambá Júnior**
+</div>
