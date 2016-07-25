@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="listaTelefonica">
+    <head>
+        <title>Lista Telefônica</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="resources/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/js/angular.min.js"></script>
+        <script src="resources/js/modulos.js" type="text/javascript"></script>
+        <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body ng-controller="listaTelefonicaCtrl">
+        <div class="jumbotron">
+            <!--<h4 ng-bind="app"></h4>-->
+            <h2>{{app}}</h2>
+            <table ng-show="contatos.length > 0" class="table table-striped tabelaContatos">
+                <tr>
+                    <th></th>
+                    <th><b>Nome</b></th>
+                    <th><b>Telefone</b></th>
+                    <th><b>Operadora</b></th>
+                </tr>
+                <tr ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" ng-repeat="contato in contatos">
+                    <!--<td ng-repeat="(key,value) in contato">{{value}}</td>-->
+                    <td><input type="checkbox" ng-model="contato.selecionado"/></td>
+                    <td>{{contato.nome}}</td>
+                    <td>{{contato.telefone}}</td>
+                    <td>{{contato.operadora.nome}}</td>
+                </tr>
+            </table>
+            <hr>
+            <div class="row formulario">
+                <div class="col-md-6">
+                    <label>Nome</label>
+                    <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+                </div>
+
+                <div class="col-md-6">
+                    <label>Telefone</label>
+                    <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                        <option value="">Selecione uma operadora</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row linhaBtn">
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adiciona o contato</button>
+                </div>   
+                <div class="col-md-12">
+                    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar o contatos</button>
+                </div>    
+            </div>
+            
+        </div>
+        <div ng-include="'estrutura/footer.html'"></div>
+    </body>
+</html>

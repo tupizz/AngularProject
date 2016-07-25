@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25/07/2016, 02:22:36
+    Author     : Tupi
+*/
+.jumbotron{
+    width: 400px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+}
+.table{
+    margin-top: 20px;
+}
+.tabelaContatos tr th {
+    text-align: center;
+}
+.formulario{
+    text-align: left;
+}
+.linhaBtn{
+    margin-top: 20px;
+}
+.linhaBtn button{
+
+}
+div{
+    margin-bottom: 5px;
+}
+.selecionado{
+    background-color: red !important;
+}
+.negrito{
+    font-weight: bold;
+}
