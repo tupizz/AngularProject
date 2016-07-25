@@ -1,6 +1,7 @@
 # Teste
 Primeiro contato com AngularJS.
 
-<div style="text-align:right;">
+<br>
+
 **Tadeu Humberto dos Reis Tupinambá Júnior**
-</div>
+
