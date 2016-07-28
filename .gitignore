@@ -1,2 +1,2 @@
-# ignore todos os arquivos no diretório build/
+# ignore todos os arquivos no diretório target/
 target/
