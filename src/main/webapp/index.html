@@ -5,6 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="resources/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
         <script src="resources/js/angular.min.js"></script>
+        <script src="resources/js/angular-locale_pt-br.js" type="text/javascript"></script>
+        <script src="resources/js/ngMask.min.js" type="text/javascript"></script>
         <script src="resources/js/modulos.js" type="text/javascript"></script>
         <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
@@ -13,50 +15,80 @@
         <div class="jumbotron">
             <!--<h4 ng-bind="app"></h4>-->
             <h2>{{app}}</h2>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                        <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="Quem você deseja buscar?"/>
+                    </div>
+                </div>
+            </div>
             <table ng-show="contatos.length > 0" class="table table-striped tabelaContatos">
                 <tr>
                     <th></th>
-                    <th><b>Nome</b></th>
-                    <th><b>Telefone</b></th>
-                    <th><b>Operadora</b></th>
+                    <th><b><a href="" ng-click="ordenarPor('nome')">Nome</a></b></th>
+                    <th><b><a href="" ng-click="ordenarPor('telefone')">Telefone</a></b></th>
+                    <th><b><a href="" ng-click="ordenarPor('operadora')">Operadora</a></b></th>
+                    <th><b><a href="" ng-click="ordenarPor('data')">Data</a></b></th>
                 </tr>
-                <tr ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" ng-repeat="contato in contatos">
+                <tr ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" ng-repeat="contato in contatos| filter:{nome: criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
                     <!--<td ng-repeat="(key,value) in contato">{{value}}</td>-->
                     <td><input type="checkbox" ng-model="contato.selecionado"/></td>
                     <td>{{contato.nome}}</td>
                     <td>{{contato.telefone}}</td>
                     <td>{{contato.operadora.nome}}</td>
+                    <td>{{contato.data| date:'dd/MM/yyyy, HH:mm - EEEE'}}</td>
                 </tr>
             </table>
             <hr>
-            <div class="row formulario">
-                <div class="col-md-6">
-                    <label>Nome</label>
-                    <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
-                </div>
+            <div class="alert alert-danger" ng-show="contatoForm.nome.$invalid && contatoForm.nome.$dirty">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Preencha o nome
+            </div>
+            <div class="alert alert-danger" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Preencha o telefone
+            </div>
+            <form name="contatoForm"> <!-- Ao fazer contatoForm, um objeto será criado no scope da página -->
+                <div class="row formulario">
+                    <div class="col-md-6">
+                        <label>Nome</label>
+                        <input class="form-control" type="text" ng-model="contato.nome" name="nome" ng-required="true" placeholder="Nome"/>
+                    </div>
 
-                <div class="col-md-6">
-                    <label>Telefone</label>
-                    <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+                    <div class="col-md-6">
+                        <label>Telefone</label>
+                        <input class="form-control" type="text" ng-model="contato.telefone" mask="(99) 9?9999-9999" name="telefone" ng-required="true" placeholder="Telefone"/>
+                        <!-- https://github.com/candreoliveira/ngMask -->
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
-                        <option value="">Selecione uma operadora</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-12">
+                        <select class="form-control" ng-model="contato.operadora" ng-required="true" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+                            <option value="">Selecione uma operadora</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="row linhaBtn">
                 <div class="col-md-12">
-                    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adiciona o contato</button>
+                    <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adiciona o contato</button>
                 </div>   
                 <div class="col-md-12">
                     <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-show="isContatoSelecionado(contatos)">Apagar o contatos</button>
                 </div>    
             </div>
-            
+
+
         </div>
         <div ng-include="'estrutura/footer.html'"></div>
+
+        <!-- Scripts no fim -->
+        <script src="resources/js/jQuery/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="resources/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+
+
     </body>
+
+
 </html>

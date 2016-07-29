@@ -10,7 +10,7 @@ and open the template in the editor.
 
 
 .jumbotron{
-    width: 400px;
+    width: 550px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -61,4 +61,12 @@ div{
 }
 .footer{
     font-size: 10px;
+}
+.alert{
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+.close{
+    font-size: 15px;
 }
